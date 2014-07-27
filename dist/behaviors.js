@@ -2,7 +2,7 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
 
  
 
- (function ($) {
+   (function ($) {
 
     /**
      * Call this method passing the behavior name to call the behavior
@@ -12,7 +12,7 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
      * @name  kasiaa
      * @param {string} behaviorName - The name of the behavior.
      */
-     $.fn.behavior = function(behaviorName) {
+    $.fn.behavior = function(behaviorName) {
       return qi.behaviors[behaviorName].apply( this, Array.prototype.slice.call( arguments, 1 ));
     }
 
@@ -28,22 +28,24 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
       qi.behaviors[behaviorName] = fnc;
     };
   }(jQuery));;$.fn.addBehavior("grid", function() {
-    this.addClass("b-grid");
-    this.find(" > *").addClass('b-grid-cell');
+ 	this.addClass("b-grid");
+ 	this.find(" > *").addClass('b-grid-cell');
 
-    this.find(" > *").each(function(i, el) {
-     if ($(el).inlineStyle("width") != "")
-      $(el).css("flex", "none")
-  });
+ 	this.find(" > *").each(function(i, el) {
+ 		if ($(el).inlineStyle("width") != "")
+ 			$(el).css("flex", "none")
+ 	});
 
-    return this;
-  });
+ 	return this;
+ });
 
-  $.fn.addBehavior("grid-gutters", function() {
-   this.css({
-     "margin-left" : -parseInt(this.find("> *").first().css("margin-left")),
-     "margin-right": -parseInt(this.find("> *").first().css("margin-right")),
-   })
+ $.fn.addBehavior("grid-gutters", function() {
+ 	this.css({
+ 		"margin-left" : -parseInt(this.find("> *").first().css("margin-left"))
+ 	})
+ 	
+ 	return this;
+ });
 
 /**
  * Parse DOM and apply behavior
@@ -63,20 +65,20 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
  		return this.prop("style")[$.camelCase(prop)];
  	};
  }(jQuery));;$.fn.addBehavior("sticky-footer", function(contentContainer) {
-   this.parent().addClass("b-sticky-footer-container");
+	this.parent().addClass("b-sticky-footer-container");
 
-   var cContainer = contentContainer ? $(contentContainer) : $("#main");
+	var cContainer = contentContainer ? $(contentContainer) : $("#main");
 
-   if (cContainer.length == 0)
-    throw "[Sticky Footer behavior] contentContainer not found: " + contentContainer;
+	if (cContainer.length == 0)
+		throw "[Sticky Footer behavior] contentContainer not found: " + contentContainer;
 
-  cContainer.addClass('b-sticky-footer-content');
-  return this;
+	cContainer.addClass('b-sticky-footer-content');
+	return this;
 });
 
 /**
  * Parse DOM and apply behavior
  */
- $(window).ready(function() {
-   $(".sticky-footer").behavior("sticky-footer");
- })
+$(window).ready(function() {
+	$(".sticky-footer").behavior("sticky-footer");
+})
