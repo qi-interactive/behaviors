@@ -54,15 +54,22 @@ module.exports = function(grunt) {
 			options: {
 				run: true
 			}
-		}
+		},
+
+		autoprefixer: {
+			run: {
+				src: 'src/**/*.css', 
+			}
+		},
 	})
 
-	grunt.loadNpmTasks('grunt-jsdoc');
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-mocha');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
+grunt.loadNpmTasks('grunt-jsdoc');
+grunt.loadNpmTasks('grunt-contrib-concat');
+grunt.loadNpmTasks('grunt-contrib-uglify');
+grunt.loadNpmTasks('grunt-mocha');
+grunt.loadNpmTasks('grunt-contrib-cssmin');
+grunt.loadNpmTasks('grunt-autoprefixer');
 
-	grunt.registerTask('dist', ['mocha:all', 'concat:dist', 'concat:css', 'uglify:dist', 'jsdoc']);
+grunt.registerTask('dist', ['mocha:all', 'autoprefixer:run', 'concat:dist', 'concat:css', 'uglify:dist', 'jsdoc']);
 	// grunt.registerTask('mocha');
 }

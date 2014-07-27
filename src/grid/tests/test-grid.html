@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="stylesheet" href="../../../node_modules/mocha/mocha.css" />
+  <link rel="stylesheet" href="../css/grid.css" />
+</head>
+<body>
+
+  <script src="../../../lib/jquery.js"></script>
+  <script src="../../../node_modules/mocha/mocha.js"></script>
+  <script src="../../../node_modules/chai/chai.js"></script>
+  <script src="../../behaviors.js"></script>
+  <script src="../grid.js"></script>
+
+  <script>
+    mocha.setup('bdd')
+    mocha.reporter('html');
+  </script>
+
+  <!-- Tests -->
+  <script src="specs/spec.grid.js"></script>
+
+
+  <div id="mocha"></div>
+
+  <style>
+
+    html {
+      height: 100%;
+    }
+
+    body {
+      min-height: 100%;
+    }
+
+    .b-grid-cell {
+      background: rgba(22,1,108,.1);
+    }
+
+    .page {
+      border: solid 1px rgba(147,128,108,.2);;
+      background: rgba(147,128,108,.2);;
+      width: 500px;
+      margin: 0 auto;
+      height: 150px;
+      margin-bottom: 20px;
+    }
+
+    .grid-gutters > .b-grid-cell {
+      margin-left: 1em;
+    }
+
+  </style>
+
+  <h3>Default grid</h3>
+  <div class="page">
+    <div class="grid" >
+      <div>A</div>
+      <div>B<br/> Longer text<br /> Should keep all height equal</div>
+      <div>C</div>
+    </div>
+  </div>
+
+  <h3>Gutter</h3>
+  <div class="page">
+    <div class="grid grid-gutters" >
+      <div>A</div>
+      <div>B<br/> Longer text<br /> Should keep all height equal</div>
+      <div>C</div>
+    </div>
+  </div>
+
+  <h3>Alignments</h3>
+  <div class="page">
+    <div class="grid grid-gutters grid-top" >
+      <div>A</div>
+      <div>B<br/> Longer text<br /> Should keep all height equal</div>
+      <div>C</div>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="grid grid-gutters grid-center" >
+      <div>A</div>
+      <div>B<br/> Longer text<br /> Should keep all height equal</div>
+      <div>C</div>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="grid grid-gutters grid-bottom" >
+      <div>A</div>
+      <div>B<br/> Longer text<br /> Should keep all height equal</div>
+      <div>C</div>
+    </div>
+  </div>
+
+
+  <script>
+    $(window).ready(function() {
+      setTimeout(function() {
+        mocha.run();  
+      }, 100)
+      
+    })
+
+  </script>
+
+</body>
+</html>

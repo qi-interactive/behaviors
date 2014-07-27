@@ -27,7 +27,26 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
 
       qi.behaviors[behaviorName] = fnc;
     };
-  }(jQuery));;$.fn.addBehavior("sticky-footer", function(contentContainer) {
+  }(jQuery));;$.fn.addBehavior("grid", function() {
+ 	this.addClass("b-grid");
+ 	this.find(" > *").addClass('b-grid-cell');
+ 	return this;
+ });
+
+ $.fn.addBehavior("grid-gutters", function() {
+ 	this.css({
+ 		"margin-left" : -parseInt(this.find("> *").first().css("margin-left"))
+ 	})
+ 	return this;
+ });
+
+/**
+ * Parse DOM and apply behavior
+ */
+ $(window).ready(function() {
+ 	$(".grid").behavior("grid");
+ 	$(".grid-gutters").behavior("grid-gutters")
+ });$.fn.addBehavior("sticky-footer", function(contentContainer) {
 	this.parent().addClass("b-sticky-footer-container");
 
 	var cContainer = contentContainer ? $(contentContainer) : $("#main");
