@@ -19,8 +19,12 @@ module.exports = function(grunt) {
 				stripBanners: true,
 			},
 			dist: {
-				src: ['src/**/*.js'],
+				src: ['src/**/*.js', '!src/**/specs/**'],
 				dest: 'dist/behaviors.js',
+			},
+			css: {
+				src: ['src/**/*.css'],
+				dest: 'dist/behaviors.css',
 			}
 		},
 
@@ -31,10 +35,34 @@ module.exports = function(grunt) {
 					'dist/behaviors.min.js': ['dist/behaviors.js']
 				}
 			}
+		},
+
+		cssmin: {
+			minify: {
+				expand: true,
+				cwd: 'dist/',
+				src: ['*.css', '!*.min.css'],
+				dest: 'dist/',
+				ext: '.min.css'
+			}
+		},
+
+		mocha: {
+			all: {
+				src: ['src/**/tests/*.html'],
+			},
+			options: {
+				run: true
+			}
 		}
 	})
 
 	grunt.loadNpmTasks('grunt-jsdoc');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-mocha');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
+
+	grunt.registerTask('dist', ['mocha:all', 'concat:dist', 'concat:css', 'uglify:dist', 'jsdoc']);
+	// grunt.registerTask('mocha');
 }

@@ -1,7 +1,11 @@
 {
   "devDependencies": {
+    "chai": "^1.9.1",
     "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-cssmin": "^0.10.0",
     "grunt-contrib-uglify": "^0.5.0",
-    "grunt-jsdoc": "^0.5.6"
+    "grunt-jsdoc": "^0.5.6",
+    "grunt-mocha": "^0.4.11",
+    "mocha": "^1.21.0"
   }
 }
