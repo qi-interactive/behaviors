@@ -9,6 +9,12 @@
  $.fn.addBehavior("grid", function() {
  	this.addClass("b-grid");
  	this.find(" > *").addClass('b-grid-cell');
+
+ 	this.find(" > *").each(function(i, el) {
+ 		if ($(el).inlineStyle("width") != "")
+ 			$(el).css("flex", "none")
+ 	});
+
  	return this;
  });
 
@@ -16,6 +22,7 @@
  	this.css({
  		"margin-left" : -parseInt(this.find("> *").first().css("margin-left"))
  	})
+ 	
  	return this;
  });
 
@@ -26,3 +33,14 @@
  	$(".grid").behavior("grid");
  	$(".grid-gutters").behavior("grid-gutters")
  })
+
+
+/**
+ * TODO update this method to also check if property set in CSS. Will remove the need for grid-defined-width property
+ * Helper function which checks if a property has been set by the user (ONLY inline)
+ */
+ ;(function ($) {
+ 	$.fn.inlineStyle = function (prop) {
+ 		return this.prop("style")[$.camelCase(prop)];
+ 	};
+ }(jQuery));

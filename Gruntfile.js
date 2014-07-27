@@ -70,6 +70,6 @@ grunt.loadNpmTasks('grunt-mocha');
 grunt.loadNpmTasks('grunt-contrib-cssmin');
 grunt.loadNpmTasks('grunt-autoprefixer');
 
-grunt.registerTask('dist', ['mocha:all', 'autoprefixer:run', 'concat:dist', 'concat:css', 'uglify:dist', 'jsdoc']);
+grunt.registerTask('dist', ['mocha:all', 'autoprefixer:run', 'concat:dist', 'concat:css', 'uglify:dist', 'cssmin:minify', 'jsdoc']);
 	// grunt.registerTask('mocha');
 }
