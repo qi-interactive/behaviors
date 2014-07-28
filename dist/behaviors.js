@@ -82,7 +82,6 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
 	var relativeToWidth = parseInt(options.relativeToWidth) || $(relativeToElement).width();
 
 	this.each(function(){
-		console.log('relativeToWidth: '+relativeToWidth + ', element width: ' + $(this).width());
 
 		if($(this).width() > relativeToWidth)
 			$(this).css({width: '100%'});
