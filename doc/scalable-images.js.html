@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>DocStrap Index</title>
+	<title>DocStrap Source: scalable-images/scalable-images.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -50,7 +50,7 @@
 						</li>
 						
 						<li>
-							<a href="global.html#Scalable Element">Scalable Element</a>
+							<a href="global.html#Scalable Images">Scalable Images</a>
 						</li>
 						
 						<li>
@@ -68,36 +68,58 @@
 	<div class="row-fluid">
 
 		
-		<div class="span8">
-			
+			<div class="span12">
+				
 				<div id="main">
 					
 
 
-	
-	<span class="page-title">Index</span>
-	
-	
+		<h1 class="page-title">Source: scalable-images/scalable-images.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">/**
+ * Scalable Images scales images if they are wider than parent container
+ * or centers them if narrower than parent container.
+ * 
+ *
+ * @name  Scalable Images
+ * @type {Behavior}
+ * @param {string} [contentContainer=#main] - the container of the content, which should be an element previous to the image.
+ */
+$.fn.addBehavior("scalable-images", function() {
 
+	var elements = $(this);
 
+	if (elements.length == 0)
+		throw "[Scalable Images behavior] element not found: " + elements;
 
+	elements.each(function(){
+		var parentWidth = $(this).parent().width();
+		if($(this).width() > parentWidth)
+			$(this).css({width: '100%'});
+		else {
+			var elementWidthPercentage = ($(this).width()/parentWidth)*100;
+			$(this).css({width: elementWidthPercentage + "%"});
+		}
+	});
 
+	return this;
+});
 
-
-
-
-
-
-
-
-	
-	
-
-
-
-
-
-
+/**
+ * Parse DOM and apply behavior
+ */
+$(window).ready(function() {
+	$(".scalable-image").behavior("scalable-images");
+});
+$(window).on('resize', function() {
+	$(".scalable-image").behavior("scalable-images");
+})
+</pre>
+	</article>
+</section>
 
 
 
@@ -122,10 +144,6 @@
 				</footer>
 			</div>
 
-			
-			<div class="span3">
-				<div id="toc"></div>
-			</div>
 			
 			<br clear="both">
 		</div>

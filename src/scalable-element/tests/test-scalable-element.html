@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+     <title>Mocha Tests</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="../../../node_modules/mocha/mocha.css" />
+</head>
+<body>
+    <script src="../../../lib/jquery.js"></script>
+    <script src="../../../node_modules/mocha/mocha.js"></script>
+    <script src="../../../node_modules/chai/chai.js"></script>
+    <script src="../../behaviors.js"></script>
+    <script src="../scalable-element.js"></script>
+
+    <script>
+        mocha.setup('bdd')
+        mocha.reporter('html');
+    </script>
+    <!-- Tests -->
+    <script src="specs/spec.scalable-element.js"></script>
+    
+    <div id="mocha"></div>
+
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            min-height: 100%;
+        }
+
+        html, body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #main {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 940px;
+        }
+
+    </style>
+
+    <div id="main">
+        <p><img src="../images/scalable-element-test-1.png" alt="" class="scalable-element"></p>
+        <p>&nbsp;</p>
+        <p><img src="../images/scalable-element-test-2.jpg" alt="" class="scalable-element"></p>
+        <p>&nbsp;</p>
+        <p><img src="../images/scalable-element-test-1.png" alt="" class="scalable-element"></p>
+        <p>&nbsp;</p>
+        <p><img src="../images/scalable-element-test-2.jpg" alt="" class="scalable-element"></p>
+    </div>
+
+    <script>
+        $(window).ready(function() {
+          setTimeout(function() {
+            mocha.run();  
+        }, 100)
+          
+      })
+
+    </script>
+
+</body>
+</html>

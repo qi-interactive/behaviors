@@ -64,7 +64,34 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
  	$.fn.inlineStyle = function (prop) {
  		return this.prop("style")[$.camelCase(prop)];
  	};
- }(jQuery));;$.fn.addBehavior("sticky-footer", function(contentContainer) {
+ }(jQuery));;$.fn.addBehavior("scalable-element", function() {
+
+	var elements = $(this);
+
+	if (elements.length == 0)
+		throw "[Scalable Element behavior] element not found: " + elements;
+
+	elements.each(function(){
+		var parentWidth = $(this).parent().width();
+		if($(this).width() > parentWidth)
+			$(this).css({width: '100%'});
+		else {
+			var elementWidthPercentage = ($(this).width()/parentWidth)*100;
+			$(this).css({width: elementWidthPercentage + "%"});
+		}
+	});
+
+	return this;
+});
+
+/**
+ * Parse DOM and apply behavior
+ */
+$(window).ready(function() {
+	$(".scalable-element").behavior("scalable-element");
+});
+
+;$.fn.addBehavior("sticky-footer", function(contentContainer) {
 	this.parent().addClass("b-sticky-footer-container");
 
 	var cContainer = contentContainer ? $(contentContainer) : $("#main");

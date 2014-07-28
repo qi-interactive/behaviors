@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>DocStrap Index</title>
+	<title>DocStrap Source: scalable-element/scalable-element.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -68,36 +68,55 @@
 	<div class="row-fluid">
 
 		
-		<div class="span8">
-			
+			<div class="span12">
+				
 				<div id="main">
 					
 
 
-	
-	<span class="page-title">Index</span>
-	
-	
+		<h1 class="page-title">Source: scalable-element/scalable-element.js</h1>
+    
+<section>
+	<article>
+		<pre
+			class="sunlight-highlight-javascript linenums">/**
+ * Scalable Element scales elements if they are wider than parent container
+ * or set original element width in percentages if narrower than parent container.
+ * 
+ *
+ * @name  Scalable Element
+ * @type {Behavior}
+ */
+$.fn.addBehavior("scalable-element", function() {
 
+	var elements = $(this);
 
+	if (elements.length == 0)
+		throw "[Scalable Element behavior] element not found: " + elements;
 
+	elements.each(function(){
+		var parentWidth = $(this).parent().width();
+		if($(this).width() > parentWidth)
+			$(this).css({width: '100%'});
+		else {
+			var elementWidthPercentage = ($(this).width()/parentWidth)*100;
+			$(this).css({width: elementWidthPercentage + "%"});
+		}
+	});
 
+	return this;
+});
 
+/**
+ * Parse DOM and apply behavior
+ */
+$(window).ready(function() {
+	$(".scalable-element").behavior("scalable-element");
+});
 
-
-
-
-
-
-
-	
-	
-
-
-
-
-
-
+</pre>
+	</article>
+</section>
 
 
 
@@ -122,10 +141,6 @@
 				</footer>
 			</div>
 
-			
-			<div class="span3">
-				<div id="toc"></div>
-			</div>
 			
 			<br clear="both">
 		</div>
