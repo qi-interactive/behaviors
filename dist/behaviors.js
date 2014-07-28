@@ -64,19 +64,30 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
  	$.fn.inlineStyle = function (prop) {
  		return this.prop("style")[$.camelCase(prop)];
  	};
- }(jQuery));;$.fn.addBehavior("scalable-element", function() {
+ }(jQuery));;$.fn.addBehavior("scalable-element", function(options) {
 
-	var elements = $(this);
 
-	if (elements.length == 0)
-		throw "[Scalable Element behavior] element not found: " + elements;
+	var defaultOptions = {
 
-	elements.each(function(){
-		var parentWidth = $(this).parent().width();
-		if($(this).width() > parentWidth)
+		
+		relativeToElement: null,
+
+		
+		relativeToWidth: null
+	};
+
+	options = $.extend(defaultOptions, options);
+
+	var relativeToElement = options.relativeToElement || $(this).parent();
+	var relativeToWidth = parseInt(options.relativeToWidth) || $(relativeToElement).width();
+
+	this.each(function(){
+		console.log('relativeToWidth: '+relativeToWidth + ', element width: ' + $(this).width());
+
+		if($(this).width() > relativeToWidth)
 			$(this).css({width: '100%'});
 		else {
-			var elementWidthPercentage = ($(this).width()/parentWidth)*100;
+			var elementWidthPercentage = ($(this).width()/relativeToWidth)*100;
 			$(this).css({width: elementWidthPercentage + "%"});
 		}
 	});
@@ -90,6 +101,10 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
 $(window).ready(function() {
 	$(".scalable-element").behavior("scalable-element");
 });
+
+// $(window).on('resize', function() {
+// 	$(".scalable-element").behavior("scalable-element");
+// });
 
 ;$.fn.addBehavior("sticky-footer", function(contentContainer) {
 	this.parent().addClass("b-sticky-footer-container");
