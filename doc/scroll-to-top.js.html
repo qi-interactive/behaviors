@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>DocStrap Source: scalable-element/scalable-element.js</title>
+	<title>DocStrap Source: scroll-to-top/scroll-to-top.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -78,63 +78,35 @@
 					
 
 
-		<h1 class="page-title">Source: scalable-element/scalable-element.js</h1>
+		<h1 class="page-title">Source: scroll-to-top/scroll-to-top.js</h1>
     
 <section>
 	<article>
 		<pre
 			class="sunlight-highlight-javascript linenums">/**
- * Scalable Element scales elements if they are wider than parent container
- * or set original element width in percentages if narrower than parent container.
+ * Scroll-To-Top function scrolls to the top of the page with jQuery animation. 
  * 
- * @author  Michal Fiedorowicz
- * @name  Scalable Element
+ * @author  Kulamagal Mahendrarajah
+ * @name  Scroll-To-Top
  * @type {Behavior}
  * 
- * @property {Element} relativeToElement when provided, width of {this} will be calculated based on {relativeToElement} width
- * @property {Number} relativeToWidth when provided, width of {this} will be calculated based on the value of this param
- * 
  */
-$.fn.addBehavior("scalable-element", function(options) {
+ $.fn.addBehavior("scroll-to-top", function() {
 
-
-	var defaultOptions = {
-
-		
-		relativeToElement: null,
-
-		
-		relativeToWidth: null
-	};
-
-	options = $.extend(defaultOptions, options);
-
-	var relativeToElement = options.relativeToElement || $(this).parent();
-	var relativeToWidth = parseInt(options.relativeToWidth) || $(relativeToElement).width();
-
-	this.each(function(){
-
-		if($(this).width() > relativeToWidth)
-			$(this).css({width: '100%'});
-		else {
-			var elementWidthPercentage = ($(this).width()/relativeToWidth)*100;
-			$(this).css({width: elementWidthPercentage + "%"});
-		}
-	});
-
-	return this;
-});
+ 	this.each(function() {
+ 		$(this).on('click', function() { 
+ 			$("html, body").animate({ scrollTop: 0 }, "slow");
+ 		});
+ 	});
+ 	return this;
+ });
 
 /**
  * Parse DOM and apply behavior
  */
-$(window).ready(function() {
-	$(".scalable-element").behavior("scalable-element");
-});
-
-// $(window).on('resize', function() {
-// 	$(".scalable-element").behavior("scalable-element");
-// });
+ $(window).ready(function() {
+ 	$(".scroll-to-top").behavior("scroll-to-top");
+ });
 
 </pre>
 	</article>

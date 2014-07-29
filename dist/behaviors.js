@@ -105,6 +105,23 @@ $(window).ready(function() {
 // 	$(".scalable-element").behavior("scalable-element");
 // });
 
+;$.fn.addBehavior("scroll-to-top", function() {
+
+ 	this.each(function() {
+ 		$(this).on('click', function() { 
+ 			$("html, body").animate({ scrollTop: 0 }, "slow");
+ 		});
+ 	});
+ 	return this;
+ });
+
+/**
+ * Parse DOM and apply behavior
+ */
+ $(window).ready(function() {
+ 	$(".scroll-to-top").behavior("scroll-to-top");
+ });
+
 ;$.fn.addBehavior("sticky-footer", function(contentContainer) {
 	this.parent().addClass("b-sticky-footer-container");
 
