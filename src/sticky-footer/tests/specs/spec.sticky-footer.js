@@ -4,7 +4,6 @@ describe('Sticky Footer Test Suite', function() {
 		if ($(document).height() < 450)
 			throw "Window height needs to be >= 450px, is " + $(document).height(); 
 
-
 		// position is off by < 1px depending on the browser, test to 1px precision
 		var footerPosition = $("footer").offset().top + $("footer").outerHeight(true, true);
 		chai.assert.ok(footerPosition < $(document).height() + 1 && footerPosition > $(document).height() -1 );

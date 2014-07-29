@@ -5,9 +5,7 @@
  * @module Behaviors
  */
 
-if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery") }
-
- 
+ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery") }
 
    (function ($) {
 
@@ -16,14 +14,21 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
      *
      * Additional options can be passed to the function, e.g $("#main").behavior("sticky-footer", "#option1", "#option2")
      * To learn which options can be passed, please consult documentation for specific behaviors.
-     * @name  kasiaa
+     * @name  behavior
      * @param {string} behaviorName - The name of the behavior.
      */
-    $.fn.behavior = function(behaviorName) {
+     $.fn.behavior = function(behaviorName) {
       return qi.behaviors[behaviorName].apply( this, Array.prototype.slice.call( arguments, 1 ));
     }
 
-    $.fn.addBehavior = function(behaviorName, fnc) {
+    /**
+     * Registers new behavior 
+     *
+     * @name addBehavior
+     * @param {string} behaviorName - The name of the behavior. Needs to be unique 
+     * @param {string} fnc - The name of the behavior.
+     */
+     $.fn.addBehavior = function(behaviorName, fnc) {
 
       try {
         qi.behaviors;
@@ -31,6 +36,9 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
         qi = window.qi || {};
         qi.behaviors = qi.behaviors || [];
       }
+
+      if (qi.behaviors[behaviorName] != null) 
+        throw "Behavior with the name: " + behaviorName + " has already been registered."
 
       qi.behaviors[behaviorName] = fnc;
     };
