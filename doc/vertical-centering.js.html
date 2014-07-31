@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>DocStrap Source: scroll-to-top/scroll-to-top.js</title>
+	<title>DocStrap Source: vertical-centering/vertical-centering.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -82,25 +82,23 @@
 					
 
 
-		<h1 class="page-title">Source: scroll-to-top/scroll-to-top.js</h1>
+		<h1 class="page-title">Source: vertical-centering/vertical-centering.js</h1>
     
 <section>
 	<article>
 		<pre
 			class="sunlight-highlight-javascript linenums">/**
- * Scroll-To-Top function scrolls to the top of the page with jQuery animation. 
+ * Vertical Centering function allows an element or elements to be vertically centered at all times 
  * 
  * @author  Kulamagal Mahendrarajah
- * @name  Scroll-To-Top
+ * @name  Vertical-centering
  * @type {Behavior}
  * 
  */
- $.fn.addBehavior("scroll-to-top", function() {
+ $.fn.addBehavior("vertical-centering", function() {
 
- 	this.each(function() {
- 		$(this).on('click', function() { 
- 			$("html, body").animate({ scrollTop: 0 }, "slow");
- 		});
+ 	this.each(function(i) {
+ 		$(this).parent().addClass("vertical-flex-grid-container");
  	});
  	return this;
  });
@@ -108,9 +106,10 @@
 /**
  * Parse DOM and apply behavior
  */
- $(window).ready(function() {
- 	$(".scroll-to-top").behavior("scroll-to-top");
+ $(window).on("ready resize", function() {
+ 	$(".box").behavior("vertical-centering");
  });
+
 
 </pre>
 	</article>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Mocha Tests</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="../../../node_modules/mocha/mocha.css" />
+</head>
+<body>
+    <script src="../../../lib/jquery.js"></script>
+    <script src="../../../node_modules/mocha/mocha.js"></script>
+    <script src="../../../node_modules/chai/chai.js"></script>
+    <script src="../../behaviors.js"></script>
+    <script src="../vertical-centering.js"></script>
+    <link rel="stylesheet" href="../css/vertical-centering.css" />
+</head>
+
+<script>
+    mocha.setup('bdd')
+    mocha.reporter('html');
+</script>
+<!-- Tests -->
+<script src="specs/spec.vertical-centering.js"></script>
+
+<div id="mocha"></div>
+
+<style>
+    html {
+        height: 100%;
+    }
+
+    body {
+        min-height: 100%;
+    }
+
+    html, body {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    #main {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 940px;
+        background: lightyellow;
+        height: 500px;
+    }
+
+
+    .box {
+        width: 100px;
+        height: 100px;
+        background: green;
+        display: inline-block;
+        margin: 10px;
+
+    }
+
+</style>
+
+<div id="main">
+
+    <div class="box"> Box1</div>
+
+    <div class="box">Box1</div>
+
+
+    <div class="box">Box1</div>
+
+    <div> Vertical centering </div>
+
+</div>
+
+<script>
+    $(window).ready(function() {
+      setTimeout(function() {
+        mocha.run();  
+    }, 100)
+      
+  })
+
+</script>
+
+</body>
+</html>
