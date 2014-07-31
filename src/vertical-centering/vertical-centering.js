@@ -1,5 +1,6 @@
 /**
- * Vertical Centering function allows an element or elements to be vertically centered at all times 
+ * Vertical Centering function allows an element or elements to be vertically centered within the parent container
+ * at all times regardless of window size. 
  * 
  * @author  Kulamagal Mahendrarajah
  * @name  Vertical-centering

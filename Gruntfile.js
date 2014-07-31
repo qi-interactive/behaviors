@@ -51,6 +51,7 @@ module.exports = function(grunt) {
 			all: {
 				src: ['src/**/tests/*.html'],
 			},
+
 			options: {
 				run: true
 			}
