@@ -3,7 +3,7 @@
  * at all times regardless of window size. 
  * 
  * @author  Kulamagal Mahendrarajah
- * @name  Vertical-centering
+ * @name  Vertical-Centering
  * @type {Behavior}
  * 
  */
