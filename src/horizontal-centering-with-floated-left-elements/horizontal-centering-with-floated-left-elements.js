@@ -2,14 +2,14 @@
  * Horizontal Centering With Floated Left Elements centers a parent container and its floated left children within the main container at all times.
  * 
  * @author  Kulamagal Mahendrarajah
- * @name  Vertical-Centering
+ * @name  Horizontal Centering With Floated Left Elements
  * @type {Behavior}
  *
  * @property {Number} containerMargin is compulsory as it adds equal margin-left and margin-right
  * to the elements. This should be calculated manually (see below for the formula),
  * [(Main container width / Total number of elements) - The width of the element]
  *
- * @property {Number} the default value of windowWidthToDisplayInline is 767,from this point the elements will be displayed as inline. 
+ * @property {Number} windowWidthToDisplayInline default value is 767,from this point the elements will be displayed as inline. 
  *
  */
  $.fn.addBehavior("horizontal-centering-with-floated-left-elements", function(containerMargin, options) {
