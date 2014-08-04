@@ -72,7 +72,44 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
  	$.fn.inlineStyle = function (prop) {
  		return this.prop("style")[$.camelCase(prop)];
  	};
- }(jQuery));;$.fn.addBehavior("scalable-element", function(options) {
+ }(jQuery));;$.fn.addBehavior("horizontal-centering-with-floated-left-elements", function(containerMargin, options) {
+ 	console.log(containerMargin);
+
+ 	var defaultOptions = {
+
+ 		windowWidthToDisplayInline: 767,
+ 	};
+
+ 	options = $.extend(defaultOptions, options);
+
+ 	var that = this;
+
+ 	that.parent().addClass("horizontal-flex-grid-container");
+ 	itemWidth = that.width();
+ 	itemWidth += containerMargin;
+ 	var main = $("#main");
+
+ 	var fitItems = Math.floor(main.width() / itemWidth);
+
+ 	that.parent().width(fitItems * itemWidth);
+
+ 	$(window).width() <= options.windowWidthToDisplayInline ? that.parent().addClass('change-layout-mode') : that.parent().removeClass('change-layout-mode');
+ });
+
+/**
+ * Parse DOM and apply behavior
+ */
+ $(window).ready(function() {
+
+ 	$(window).on('resize', function() {
+ 		$(".box").behavior("horizontal-centering-with-floated-left-elements", 15);
+
+ 	}).trigger('resize');    
+
+ });
+
+
+;$.fn.addBehavior("scalable-element", function(options) {
 
 
 	var defaultOptions = {
