@@ -201,19 +201,39 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
  */
 $(window).ready(function() {
 	$(".sticky-footer").behavior("sticky-footer");
-});$.fn.addBehavior("vertical-centering", function() {
+});(function() {
 
- 	this.each(function(i) {
- 		$(this).parent().addClass("vertical-flex-grid-container");
+ 	$.fn.addBehavior("vertical-centering", function() {
+
+ 		if (Modernizr.flexbox) {
+ 			this.each(function() {
+ 				$(this).parent().addClass("vertical-flex-grid-container");
+ 			});
+ 		} else {
+ 			polyfil(this);
+ 		}
+
+ 		return this;
  	});
- 	return this;
- });
 
-/**
- * Parse DOM and apply behavior
- */
- $(window).on("ready resize", function() {
- 	$(".box").behavior("vertical-centering");
- });
+ 	function polyfil(el) {
 
+ 		el.each(function(i) {
+ 			that = $(this);
+ 			that.css({
+ 				"display" : "inline-block",
+ 				"vertical-align" : "middle",
+ 				"position" : "relative",
+ 				"top" : that.parent().height() / 2 - (that.outerHeight() / 2)
+ 			});	
+ 		});
+ 	}
 
+	 /**
+	  * Parse DOM and apply behavior
+	  */
+	  $(window).ready(function() {
+	  	$(".vertical-centering").behavior("vertical-centering");
+	  });
+
+	})();
