@@ -112,39 +112,56 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
 ;$.fn.addBehavior("scalable-element", function(options) {
 
 
-	var defaultOptions = {
+ 	var defaultOptions = {
 
-		
-		relativeToElement: null,
+ 		
+ 		relativeToElement: null,
 
-		
-		relativeToWidth: null
-	};
+ 		
+ 		relativeToWidth: null
+ 	};
 
-	options = $.extend(defaultOptions, options);
+ 	options = $.extend(defaultOptions, options);
 
-	var relativeToElement = options.relativeToElement || $(this).parent();
-	var relativeToWidth = parseInt(options.relativeToWidth) || $(relativeToElement).width();
+ 	var relativeToElement = options.relativeToElement || $(this).parent();
+ 	var relativeToWidth = parseInt(options.relativeToWidth) || $(relativeToElement).width();
 
-	this.each(function(){
+ 	this.each(function(){
 
-		if($(this).width() > relativeToWidth)
-			$(this).css({width: '100%'});
-		else {
-			var elementWidthPercentage = ($(this).width()/relativeToWidth)*100;
-			$(this).css({width: elementWidthPercentage + "%"});
+ 		var isImg = (this.nodeName.toLowerCase() === 'img');
+    	var el = $(this);
+
+ 		if(isImg) {
+ 			var img = new Image();
+      		img.src = $(this).attr('src');
+      		img.onload = function() {
+        		if(img.width > relativeToWidth)
+          			el.css({width: '100%'});
+        		else {
+          			var elementWidthPercentage = (img.width/relativeToWidth)*100;
+          			el.css({width: elementWidthPercentage + "%"});
+        		}
+      		}
 		}
-	});
+    	else {
+      		if($(this).width() > relativeToWidth)
+        		$(this).css({width: '100%'});
+      		else {
+        		var elementWidthPercentage = ($(this).width()/relativeToWidth)*100;
+        		$(this).css({width: elementWidthPercentage + "%"});
+      		}
+    	}
+ 	});
 
-	return this;
-});
+ 	return this;
+ });
 
 /**
  * Parse DOM and apply behavior
  */
-$(window).ready(function() {
-	$(".scalable-element").behavior("scalable-element");
-});
+ $(window).ready(function() {
+ 	$(".scalable-element").behavior("scalable-element");
+ });
 
 // $(window).on('resize', function() {
 // 	$(".scalable-element").behavior("scalable-element");
@@ -184,19 +201,39 @@ $(window).ready(function() {
  */
 $(window).ready(function() {
 	$(".sticky-footer").behavior("sticky-footer");
-});$.fn.addBehavior("vertical-centering", function() {
+});(function() {
 
- 	this.each(function(i) {
- 		$(this).parent().addClass("vertical-flex-grid-container");
+ 	$.fn.addBehavior("vertical-centering", function() {
+
+ 		if (Modernizr.flexbox) {
+ 			this.each(function() {
+ 				$(this).parent().addClass("vertical-flex-grid-container");
+ 			});
+ 		} else {
+ 			polyfil(this);
+ 		}
+
+ 		return this;
  	});
- 	return this;
- });
 
-/**
- * Parse DOM and apply behavior
- */
- $(window).on("ready resize", function() {
- 	$(".box").behavior("vertical-centering");
- });
+ 	function polyfil(el) {
 
+ 		el.each(function(i) {
+ 			that = $(this);
+ 			that.css({
+ 				"display" : "inline-block",
+ 				"vertical-align" : "middle",
+ 				"position" : "relative",
+ 				"top" : that.parent().height() / 2 - (that.outerHeight() / 2)
+ 			});	
+ 		});
+ 	}
 
+	 /**
+	  * Parse DOM and apply behavior
+	  */
+	  $(window).ready(function() {
+	  	$(".vertical-centering").behavior("vertical-centering");
+	  });
+
+	})();
