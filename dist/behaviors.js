@@ -206,9 +206,19 @@ $(window).ready(function() {
  	$.fn.addBehavior("vertical-centering", function() {
 
  		if (Modernizr.flexbox) {
- 			this.each(function() {
- 				$(this).parent().addClass("vertical-flex-grid-container");
- 			});
+ 			this.each(function(i) {
+
+ 			    var position = $(this).css("position");
+
+ 			    if (position == "fixed" || position == "absolute") {
+ 			      $(this).css({
+ 			        top: "50%",
+ 			        "margin-top": -($(this).height()/2)
+ 			      })
+ 			    } else {
+ 			      $(this).parent().addClass("vertical-flex-grid-container");
+ 			    }
+ 			  });
  		} else {
  			polyfil(this);
  		}
