@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>DocStrap Source: horizontal-centering-with-floated-left-elements/horizontal-centering-with-floated-left-elements.js</title>
+	<title>DocStrap Source: equalise-height/equalise-height.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -90,63 +90,36 @@
 					
 
 
-		<h1 class="page-title">Source: horizontal-centering-with-floated-left-elements/horizontal-centering-with-floated-left-elements.js</h1>
+		<h1 class="page-title">Source: equalise-height/equalise-height.js</h1>
     
 <section>
 	<article>
 		<pre
 			class="sunlight-highlight-javascript linenums">/**
- * Horizontal Centering With Floated Left Elements centers a parent container and its floated left children within the main container at all times.
- * 
- * @author  Kulamagal Mahendrarajah
- * @name  Horizontal Centering With Floated Left Elements
+ * Sticky footer positions an element at the bottom of the page when there is sufficient content, or bottom of the 
+ * screen when there is not. 
+ *
+ * @name  Grid
  * @type {Behavior}
- *
- * @property {Number} containerMargin is compulsory as it adds equal margin-left and margin-right
- * to the elements. This should be calculated manually (see below for the formula),
- * [(Main container width / Total number of elements) - The width of the element]
- *
- * @property {Number} windowWidthToDisplayInline default value is 767,from this point the elements will be displayed as inline. 
- *
+ * @param {string} [contentContainer=#main] - the container of the content, which should be an element previous to the footer.
  */
- $.fn.addBehavior("horizontal-centering-with-floated-left-elements", function(containerMargin, options) {
- 	console.log(containerMargin);
+ $.fn.addBehavior("equalise-height", function() {
+ 	
+ 	var maxHeight;
+ 	$(this).each(function(i, el) {
 
- 	var defaultOptions = {
+ 		if ($(el).outerHeight(true) > maxHeight)
+ 			maxHeight = $(el).outerHeight(true)
 
- 		windowWidthToDisplayInline: 767,
- 	};
+ 	})
 
- 	options = $.extend(defaultOptions, options);
+ 	if (maxHeight)
+ 		$(this).height(maxHeight)
 
- 	var that = this;
-
- 	that.parent().addClass("horizontal-flex-grid-container");
- 	itemWidth = that.width();
- 	itemWidth += containerMargin;
- 	var main = $("#main");
-
- 	var fitItems = Math.floor(main.width() / itemWidth);
-
- 	that.parent().width(fitItems * itemWidth);
-
- 	$(window).width() &lt;= options.windowWidthToDisplayInline ? that.parent().addClass('change-layout-mode') : that.parent().removeClass('change-layout-mode');
+ 	return this;
  });
 
-/**
- * Parse DOM and apply behavior
- */
- $(window).ready(function() {
-
- 	$(window).on('resize', function() {
- 		$(".box").behavior("horizontal-centering-with-floated-left-elements", 15);
-
- 	}).trigger('resize');    
-
- });
-
-
-</pre>
+ </pre>
 	</article>
 </section>
 

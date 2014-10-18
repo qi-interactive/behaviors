@@ -35,7 +35,25 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
 
       qi.behaviors[behaviorName] = fnc;
     };
-  }(jQuery));;$.fn.addBehavior("grid", function() {
+  }(jQuery));;$.fn.addBehavior("equalise-height", function() {
+ 	
+ 	var maxHeight = 0;
+ 	$(this).each(function(i, el) {
+
+ 		if ($(el).height() > maxHeight)
+ 			maxHeight = $(el).height()
+
+ 	})
+
+  console.log("maxHeight", maxHeight)
+
+ 	if (maxHeight)
+ 		$(this).height(maxHeight)
+
+ 	return this;
+ });
+
+ ;$.fn.addBehavior("grid", function() {
  	this.addClass("b-grid");
  	this.find(" > *").addClass('b-grid-cell');
 
