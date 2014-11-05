@@ -13,7 +13,6 @@
  *
  */
  $.fn.addBehavior("horizontal-centering-with-floated-left-elements", function(containerMargin, options) {
- 	console.log(containerMargin);
 
  	var defaultOptions = {
 
