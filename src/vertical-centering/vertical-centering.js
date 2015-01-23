@@ -14,6 +14,11 @@
 
  	$.fn.addBehavior("vertical-centering", function() {
 
+ 		if (Modernizr.flexbox == undefined) {
+ 			console.error("Modernizr does not exist or does not support flexbox property. Bailing..");
+ 			return;
+ 		}
+
  		if (Modernizr.flexbox) {
  			this.each(function(i) {
 
