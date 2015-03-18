@@ -12,6 +12,8 @@
  * @property {Number} windowWidthToDisplayInline default value is 767,from this point the elements will be displayed as inline. 
  *
  */
+
+ /* OPTION 1 WITH FLEX */
  $.fn.addBehavior("horizontal-centering-with-floated-left-elements", function(containerMargin, options) {
 
  	var defaultOptions = {
@@ -44,6 +46,49 @@
  		$(".box").behavior("horizontal-centering-with-floated-left-elements", 15);
 
  	}).trigger('resize');    
+
+ });
+
+ /**
+  * Horizontal Centering With Floated Left Elements Without Flex centers a parent container and its floated left children within the main container at all times.
+  * 
+  * @author  Kulamagal Mahendrarajah
+  * @name  Horizontal Centering With Floated Left Elements Without Flex
+  * @type {Behavior}
+  *
+  * Requirements: Elements width should be specified
+  *
+  */
+
+  /* OPTION 2 WITHOUT FLEX */
+
+  $.fn.addBehavior("horizontal-centering-with-floated-left-elements-without-flex", function(containerElements, options) {
+
+  	var defaultOptions = {
+
+  	};
+
+  	options = $.extend(defaultOptions, options);
+
+  	var that = this;
+
+  	var main = $("#main");
+  	
+  	var itemWidth = main.find(containerElements).outerWidth(true);
+
+  	$(window).resize(function() {
+  		var fitItems = Math.floor(main.width() / itemWidth);
+  		that.outerWidth(fitItems * itemWidth);
+  	}).trigger('resize');
+
+  });
+
+/**
+ * Parse DOM and apply behavior
+ */
+ $(window).ready(function() {
+
+   $(".parent-container").behavior("horizontal-centering-with-floated-left-elements-without-flex", '.box');
 
  });
 
