@@ -1,6 +1,6 @@
 if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery") }
 
-   (function ($) {
+ (function ($) {
 
     /**
      * Call this method passing the behavior name to call the behavior
@@ -36,42 +36,42 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
       qi.behaviors[behaviorName] = fnc;
     };
   }(jQuery));;$.fn.addBehavior("equalise-height", function() {
- 	
- 	var maxHeight = 0;
- 	$(this).each(function(i, el) {
+    
+    var maxHeight = 0;
+    $(this).each(function(i, el) {
 
- 		if ($(el).height() > maxHeight)
- 			maxHeight = $(el).height()
+     if ($(el).height() > maxHeight)
+      maxHeight = $(el).height()
 
- 	})
+  })
 
-  console.log("maxHeight", maxHeight)
+    console.log("maxHeight", maxHeight)
 
- 	if (maxHeight)
- 		$(this).height(maxHeight)
+    if (maxHeight)
+     $(this).height(maxHeight)
 
- 	return this;
+   return this;
  });
 
- ;$.fn.addBehavior("grid", function() {
- 	this.addClass("b-grid");
- 	this.find(" > *").addClass('b-grid-cell');
+  ;$.fn.addBehavior("grid", function() {
+    this.addClass("b-grid");
+    this.find(" > *").addClass('b-grid-cell');
 
- 	this.find(" > *").each(function(i, el) {
- 		if ($(el).inlineStyle("width") != "")
- 			$(el).css("flex", "none")
- 	});
+    this.find(" > *").each(function(i, el) {
+     if ($(el).inlineStyle("width") != "")
+      $(el).css("flex", "none")
+  });
 
- 	return this;
- });
+    return this;
+  });
 
- $.fn.addBehavior("grid-gutters", function() {
- 	this.css({
- 		"margin-left" : -parseInt(this.find("> *").first().css("margin-left"))
- 	})
- 	
- 	return this;
- });
+  $.fn.addBehavior("grid-gutters", function() {
+    this.css({
+     "margin-left" : -parseInt(this.find("> *").first().css("margin-left"))
+   })
+    
+    return this;
+  });
 
 /**
  * Parse DOM and apply behavior
@@ -127,7 +127,7 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
  });
 
 
-;$.fn.addBehavior("scalable-element", function(options) {
+ ;$.fn.addBehavior("scalable-element", function(options) {
 
 
  	var defaultOptions = {
@@ -147,29 +147,29 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
  	this.each(function(){
 
  		var isImg = (this.nodeName.toLowerCase() === 'img');
-    	var el = $(this);
+     var el = $(this);
 
- 		if(isImg) {
- 			var img = new Image();
-      		img.src = $(this).attr('src');
-      		img.onload = function() {
-        		if(img.width > relativeToWidth)
-          			el.css({width: '100%'});
-        		else {
-          			var elementWidthPercentage = (img.width/relativeToWidth)*100;
-          			el.css({width: elementWidthPercentage + "%"});
-        		}
-      		}
-		}
-    	else {
-      		if($(this).width() > relativeToWidth)
-        		$(this).css({width: '100%'});
-      		else {
-        		var elementWidthPercentage = ($(this).width()/relativeToWidth)*100;
-        		$(this).css({width: elementWidthPercentage + "%"});
-      		}
-    	}
- 	});
+     if(isImg) {
+      var img = new Image();
+      img.src = $(this).attr('src');
+      img.onload = function() {
+        if(img.width > relativeToWidth)
+         el.css({width: '100%'});
+       else {
+         var elementWidthPercentage = (img.width/relativeToWidth)*100;
+         el.css({width: elementWidthPercentage + "%"});
+       }
+     }
+   }
+   else {
+    if($(this).width() > relativeToWidth)
+      $(this).css({width: '100%'});
+    else {
+      var elementWidthPercentage = ($(this).width()/relativeToWidth)*100;
+      $(this).css({width: elementWidthPercentage + "%"});
+    }
+  }
+});
 
  	return this;
  });
@@ -185,15 +185,15 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
 // 	$(".scalable-element").behavior("scalable-element");
 // });
 
-;$.fn.addBehavior("scroll-to-top", function() {
+  ;$.fn.addBehavior("scroll-to-top", function() {
 
- 	this.each(function() {
- 		$(this).on('click', function() { 
- 			$("html, body").stop().animate({ scrollTop: 0 }, 'slow');
- 		});
- 	});
- 	return this;
- });
+    this.each(function() {
+     $(this).on('click', function() { 
+      $("html, body").stop().animate({ scrollTop: 0 }, 'slow');
+    });
+   });
+    return this;
+  });
 
 /**
  * Parse DOM and apply behavior
@@ -202,41 +202,68 @@ if (typeof jQuery === "undefined") { throw new Error("Behaviors requires jQuery"
  	$(".scroll-to-top").behavior("scroll-to-top");
  });
 
-;$.fn.addBehavior("sticky-footer", function(contentContainer) {
-	this.parent().addClass("b-sticky-footer-container");
+ ;
 
-	var cContainer = contentContainer ? $(contentContainer) : $("#main");
+ $.fn.addBehavior("sticky-footer", function(contentContainer) {
 
-	if (cContainer.length == 0)
-		throw "[Sticky Footer behavior] contentContainer not found: " + contentContainer;
+  var ua = window.navigator.userAgent;
+  if (ua.indexOf("Trident/7.0") > 0 || ua.indexOf("MSIE ") > 0) {
 
-	cContainer.addClass('b-sticky-footer-content');
-	return this;
+    $(window).resize(function() { 
+
+      if($(window).height() > ($('header, #header').outerHeight(true) + $('#mobile-nav').outerHeight(true) + $('#footer, footer').outerHeight(true) + $('#main').outerHeight(true))) { 
+        $('#footer, footer').css({
+          position: 'fixed',
+          bottom: '0px'
+        })
+
+      } else {
+        $('#footer, footer').css({
+          position: 'relative',
+        })
+
+      }
+
+    }).trigger('resize');
+
+  } else {
+   this.parent().addClass("b-sticky-footer-container");
+
+   var cContainer = contentContainer ? $(contentContainer) : $("#main");
+
+   if (cContainer.length == 0)
+    throw "[Sticky Footer behavior] contentContainer not found: " + contentContainer;
+
+  cContainer.addClass('b-sticky-footer-content');
+}
+return this;
+
 });
+
 
 /**
  * Parse DOM and apply behavior
  */
-$(window).ready(function() {
-	$(".sticky-footer").behavior("sticky-footer");
-});(function() {
+ $(window).ready(function() {
+   $(".sticky-footer").behavior("sticky-footer");
+ });(function() {
 
  	$.fn.addBehavior("vertical-centering", function() {
 
  		if (Modernizr.flexbox) {
  			this.each(function(i) {
 
- 			    var position = $(this).css("position");
+        var position = $(this).css("position");
 
- 			    if (position == "fixed" || position == "absolute") {
- 			      $(this).css({
- 			        top: "50%",
- 			        "margin-top": -($(this).height()/2)
- 			      })
- 			    } else {
- 			      $(this).parent().addClass("vertical-flex-grid-container");
- 			    }
- 			  });
+        if (position == "fixed" || position == "absolute") {
+          $(this).css({
+            top: "50%",
+            "margin-top": -($(this).height()/2)
+          })
+        } else {
+          $(this).parent().addClass("vertical-flex-grid-container");
+        }
+      });
  		} else {
  			polyfil(this);
  		}
